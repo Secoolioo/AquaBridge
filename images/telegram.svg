@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 470" width="1200" height="470" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="470" rx="20" fill="#0a1a26"/>
+  <text x="40" y="52" font-size="26" font-weight="700" fill="#eef5fa">Anatomy of a Hydrus telegram (wM-Bus T1, OMS security mode 7)</text>
+  <text x="40" y="80" font-size="15" fill="#7f95a7">84 bytes after 3-of-6 decoding. Header in clear text, payload AES-128 encrypted, authenticated with an 8-byte CMAC.</text>
+
+  <g font-family="Consolas, monospace" font-size="17" text-anchor="middle">
+    <!-- DLL -->
+    <rect x="40"  y="120" width="300" height="70" rx="10" fill="#0f2f45" stroke="#38bdf8"/>
+    <text x="190" y="152" fill="#e0f2fe">53 44 A5 11 78 56 34 12 76 07</text>
+    <text x="190" y="178" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#7dd3fc">DLL header</text>
+    <!-- ELL -->
+    <rect x="352" y="120" width="120" height="70" rx="10" fill="#10302a" stroke="#34d399"/>
+    <text x="412" y="152" fill="#d1fae5">8C 00 C9</text>
+    <text x="412" y="178" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#6ee7b7">ELL</text>
+    <!-- AFL -->
+    <rect x="484" y="120" width="280" height="70" rx="10" fill="#2a1d10" stroke="#f59e0b"/>
+    <text x="624" y="152" fill="#fef3c7">90 0F 00 2C 25 &lt;MCR&gt; &lt;MAC&gt;</text>
+    <text x="624" y="178" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#fbbf24">AFL: counter + CMAC</text>
+    <!-- TPL -->
+    <rect x="776" y="120" width="170" height="70" rx="10" fill="#1b1730" stroke="#8b5cf6"/>
+    <text x="861" y="152" fill="#ede9fe">7A 21 80 31 07</text>
+    <text x="861" y="178" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#c4b5fd">TPL: status, mode 7</text>
+    <!-- payload -->
+    <rect x="958" y="120" width="202" height="70" rx="10" fill="#2a1520" stroke="#f472b6"/>
+    <text x="1059" y="152" fill="#fce7f3">█▓▒░ AES ░▒▓█</text>
+    <text x="1059" y="178" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#f9a8d4">encrypted records</text>
+  </g>
+
+  <!-- DLL breakdown -->
+  <g font-size="14" fill="#a9bccb">
+    <text x="40" y="232" font-weight="700" fill="#eef5fa">DLL header, byte by byte</text>
+    <text x="40" y="262"><tspan font-family="Consolas, monospace" fill="#7dd3fc">53</tspan>  length (83 bytes follow)</text>
+    <text x="40" y="288"><tspan font-family="Consolas, monospace" fill="#7dd3fc">44</tspan>  SND_NR, the meter just sends</text>
+    <text x="40" y="314"><tspan font-family="Consolas, monospace" fill="#7dd3fc">A5 11</tspan>  manufacturer 0x11A5 = DME (Diehl)</text>
+    <text x="40" y="340"><tspan font-family="Consolas, monospace" fill="#7dd3fc">78 56 34 12</tspan>  meter ID, little endian -&gt; 12345678</text>
+    <text x="40" y="366"><tspan font-family="Consolas, monospace" fill="#7dd3fc">76</tspan>  version 0x76 (Hydrus 2.0, "DME76" on the label)</text>
+    <text x="40" y="392"><tspan font-family="Consolas, monospace" fill="#7dd3fc">07</tspan>  device type: water</text>
+  </g>
+
+  <!-- decrypted records -->
+  <g font-size="14" fill="#a9bccb">
+    <text x="640" y="232" font-weight="700" fill="#eef5fa">After decryption (DIF/VIF records)</text>
+    <text x="640" y="262"><tspan font-family="Consolas, monospace" fill="#f9a8d4">0C 13</tspan>  total volume, 1 litre resolution</text>
+    <text x="640" y="288"><tspan font-family="Consolas, monospace" fill="#f9a8d4">4C 13 / 42 6C</tspan>  value + date at billing day</text>
+    <text x="640" y="314"><tspan font-family="Consolas, monospace" fill="#f9a8d4">0A 5A</tspan>  water temperature, 0.1 °C</text>
+    <text x="640" y="340"><tspan font-family="Consolas, monospace" fill="#f9a8d4">02 FD 74</tspan>  remaining battery life</text>
+    <text x="640" y="366"><tspan font-family="Consolas, monospace" fill="#f9a8d4">04 FD 17</tspan>  error flags (vendor specific)</text>
+    <text x="640" y="392"><tspan font-family="Consolas, monospace" fill="#f9a8d4">84 04 6D …</tspan>  monthly log values</text>
+  </g>
+
+  <text x="40" y="440" font-size="13" fill="#6f8496">The ID in this picture is a placeholder. Your meter's ID is printed on the label, e.g. "8 DME76 1234 5678" -> meter_id: 0x12345678.</text>
+</svg>

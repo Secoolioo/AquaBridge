@@ -1,0 +1,14 @@
+# ESPHome secrets and build output
+secrets.yaml
+esphome/secrets.yaml
+.esphome/
+**/.esphome/
+*.bin
+*.elf
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp

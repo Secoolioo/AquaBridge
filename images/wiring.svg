@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" width="1200" height="640" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="640" rx="20" fill="#0a1a26"/>
+  <text x="40" y="52" font-size="26" font-weight="700" fill="#eef5fa">Wiring: CC1101 to ESP32 DevKit</text>
+  <text x="40" y="80" font-size="15" fill="#f87171" font-weight="600">The CC1101 runs on 3.3 V only. Never connect VCC to 5 V / VIN.</text>
+
+  <!-- ESP32 board -->
+  <g transform="translate(70,120)">
+    <rect width="300" height="470" rx="14" fill="#123a2c" stroke="#2f7a5a" stroke-width="2"/>
+    <rect x="80" y="18" width="140" height="120" rx="6" fill="#1d2b33" stroke="#4b6372"/>
+    <text x="150" y="72" text-anchor="middle" font-size="16" font-weight="700" fill="#d7e2ea">ESP32</text>
+    <text x="150" y="94" text-anchor="middle" font-size="12" fill="#9fb3c2">WROOM-32</text>
+    <rect x="115" y="440" width="70" height="30" rx="5" fill="#9aa7b0"/>
+    <text x="150" y="460" text-anchor="middle" font-size="11" fill="#1b2a33" font-weight="700">USB-C</text>
+    <text x="150" y="156" text-anchor="middle" font-size="12" fill="#9fb3c2">diymore ESP32 NodeMCU (CH340)</text>
+
+    <!-- right pin header (used pins highlighted) -->
+    <g font-size="13" font-family="Consolas, monospace">
+      <g fill="#d4a017"><circle cx="285" cy="170" r="6"/><circle cx="285" cy="205" r="6"/><circle cx="285" cy="240" r="6"/><circle cx="285" cy="275" r="6"/><circle cx="285" cy="310" r="6"/><circle cx="285" cy="345" r="6"/><circle cx="285" cy="380" r="6"/><circle cx="285" cy="415" r="6"/></g>
+      <text x="270" y="175" text-anchor="end" fill="#e5edf3">3V3</text>
+      <text x="270" y="210" text-anchor="end" fill="#e5edf3">GND</text>
+      <text x="270" y="245" text-anchor="end" fill="#e5edf3">GPIO13</text>
+      <text x="270" y="280" text-anchor="end" fill="#e5edf3">GPIO12</text>
+      <text x="270" y="315" text-anchor="end" fill="#e5edf3">GPIO14</text>
+      <text x="270" y="350" text-anchor="end" fill="#e5edf3">GPIO2</text>
+      <text x="270" y="385" text-anchor="end" fill="#e5edf3">GPIO5</text>
+      <text x="270" y="420" text-anchor="end" fill="#7f95a7">GPIO4</text>
+    </g>
+  </g>
+
+  <!-- CC1101 -->
+  <g transform="translate(820,190)">
+    <rect width="270" height="300" rx="12" fill="#2a1520" stroke="#a3485f" stroke-width="2"/>
+    <rect x="160" y="110" width="90" height="70" rx="5" fill="#1d2b33" stroke="#4b6372"/>
+    <text x="205" y="150" text-anchor="middle" font-size="14" font-weight="700" fill="#d7e2ea">CC1101</text>
+    <text x="205" y="208" text-anchor="middle" font-size="12" fill="#c39aa6">868 MHz module</text>
+    <!-- antenna -->
+    <path d="M235 0 V-60" stroke="#c9d6df" stroke-width="4" stroke-linecap="round"/>
+    <text x="96" y="-40" font-size="12" fill="#9fb3c2">antenna, upright</text>
+    <text x="96" y="-24" font-size="12" fill="#9fb3c2">(spring or 8.2 cm wire)</text>
+    <g font-size="13" font-family="Consolas, monospace">
+      <g fill="#d4a017"><circle cx="10" cy="-20" r="6" transform="translate(0,70)"/><circle cx="10" cy="15" r="6" transform="translate(0,70)"/><circle cx="10" cy="50" r="6" transform="translate(0,70)"/><circle cx="10" cy="85" r="6" transform="translate(0,70)"/><circle cx="10" cy="120" r="6" transform="translate(0,70)"/><circle cx="10" cy="155" r="6" transform="translate(0,70)"/><circle cx="10" cy="190" r="6" transform="translate(0,70)"/><circle cx="10" cy="225" r="6" transform="translate(0,70)"/></g>
+      <text x="26" y="55" fill="#e5edf3">VCC</text>
+      <text x="26" y="90" fill="#e5edf3">GND</text>
+      <text x="26" y="125" fill="#e5edf3">SI / MOSI</text>
+      <text x="26" y="160" fill="#e5edf3">SO / MISO</text>
+      <text x="26" y="195" fill="#e5edf3">SCK</text>
+      <text x="26" y="230" fill="#e5edf3">CSN</text>
+      <text x="26" y="265" fill="#e5edf3">GDO0</text>
+      <text x="26" y="300" fill="#7f95a7">GDO2</text>
+    </g>
+  </g>
+
+  <!-- wires: ESP pins at x=355, y=290..535 ; CC pins at x=830, y=240..485 -->
+  <g fill="none" stroke-width="5" stroke-linecap="round">
+    <path d="M361 290 C 600 290, 600 240, 824 240" stroke="#ef4444"/>
+    <path d="M361 325 C 600 325, 600 275, 824 275" stroke="#94a3b8"/>
+    <path d="M361 360 C 600 360, 600 310, 824 310" stroke="#3b82f6"/>
+    <path d="M361 395 C 600 395, 600 345, 824 345" stroke="#22c55e"/>
+    <path d="M361 430 C 600 430, 600 380, 824 380" stroke="#f59e0b"/>
+    <path d="M361 465 C 600 465, 600 415, 824 415" stroke="#a855f7"/>
+    <path d="M361 500 C 600 500, 600 450, 824 450" stroke="#a16207"/>
+    <path d="M361 535 C 600 535, 600 485, 824 485" stroke="#475569" stroke-dasharray="8 8"/>
+  </g>
+  <g font-size="12" fill="#9fb3c2">
+    <text x="380" y="282">3.3 V</text>
+    <text x="380" y="317">ground</text>
+    <text x="380" y="352">MOSI</text>
+    <text x="380" y="387">MISO</text>
+    <text x="380" y="422">clock</text>
+    <text x="380" y="457">chip select</text>
+    <text x="380" y="492">interrupt</text>
+    <text x="380" y="527">optional, not used</text>
+  </g>
+
+  <text x="1030" y="560" font-size="13" fill="#7f95a7" text-anchor="end">GPIO12/13/14 = ESP32 hardware SPI (HSPI). GPIO2/5/12 are strapping pins, works fine in practice.</text>
+</svg>

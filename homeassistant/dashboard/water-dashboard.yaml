@@ -1,0 +1,294 @@
+# =====================================================================
+#  AquaBridge — "Water" dashboard (sections layout, 3 views)
+#
+#  Settings -> Dashboards -> Add dashboard -> New dashboard from scratch
+#  -> open it -> ⋮ -> Edit dashboard -> ⋮ -> Raw configuration editor
+#  -> replace everything with this file -> Save.
+#
+#  Uses the entity IDs from esphome/aquabridge.yaml (device "Water Meter")
+#  and homeassistant/packages/aquabridge.yaml. No custom cards needed.
+# =====================================================================
+title: Water
+views:
+  # ------------------------------------------------------------------
+  - title: Overview
+    path: overview
+    icon: mdi:water
+    type: sections
+    max_columns: 3
+    header:
+      layout: responsive
+      badges_position: bottom
+      card:
+        type: markdown
+        text_only: true
+        content: >-
+          ## 💧 Water
+
+          **Meter:** {{ '%.3f' | format(states('sensor.water_meter_total') | float(0)) }} m³ ·
+          **Today:** {% set h = states('sensor.water_today') | float(0) %}{% if state_attr('sensor.water_today', 'unit_of_measurement') == 'm³' %}{% set h = h * 1000 %}{% endif %}{{ h | round(0) | int }} l ·
+          **Flow:** {{ (states('sensor.water_flow') | float(0) * 1000 / 60) | round(1) }} l/min
+
+          {% if is_state('binary_sensor.water_meter_meter_reception', 'on') %}✅ Radio OK{% elif is_state('binary_sensor.water_meter_meter_reception', 'off') %}⚠️ No radio reception!{% else %}⏳ Checking radio{% endif %} ·
+          {% if is_state('binary_sensor.water_running', 'on') %}🚿 Water running{% else %}💤 No flow{% endif %} ·
+          {% if is_state('automation.water_leak_and_burst_pipe_alarm', 'on') %}🛡️ Leak alarm armed{% else %}🔕 Leak alarm OFF{% endif %}
+    badges:
+      - type: entity
+        entity: binary_sensor.water_meter_meter_reception
+        name: Radio
+        show_name: true
+      - type: entity
+        entity: binary_sensor.water_running
+        name: Water running
+        show_name: true
+      - type: entity
+        entity: sensor.water_meter_water_temperature
+        name: Water temp.
+        show_name: true
+      - type: entity
+        entity: sensor.water_meter_last_telegram
+        name: Last telegram
+        show_name: true
+    sections:
+      - type: grid
+        cards:
+          - type: heading
+            heading: Meter
+            icon: mdi:counter
+          - type: tile
+            entity: sensor.water_meter_total
+            name: Meter reading
+            grid_options: {columns: 12}
+            features:
+              - type: trend-graph
+                hours_to_show: 168
+          - type: gauge
+            entity: sensor.water_flow
+            name: Flow now
+            min: 0
+            max: 2.4
+            needle: true
+            severity: {green: 0, yellow: 0.9, red: 1.8}
+            grid_options: {columns: 6}
+          - type: tile
+            entity: sensor.water_meter_water_temperature
+            name: Water temperature
+            vertical: true
+            grid_options: {columns: 6}
+            features:
+              - type: trend-graph
+                hours_to_show: 48
+          - type: tile
+            entity: sensor.water_flow_hourly_average
+            name: Flow, 1 h average
+            grid_options: {columns: 12}
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Consumption
+            icon: mdi:chart-bar
+          - {type: tile, entity: sensor.water_today, name: Today, vertical: true, grid_options: {columns: 4}}
+          - {type: tile, entity: sensor.water_this_month, name: This month, vertical: true, grid_options: {columns: 4}}
+          - {type: tile, entity: sensor.water_this_year, name: This year, vertical: true, grid_options: {columns: 4}}
+          - {type: tile, entity: sensor.water_meter_usage_since_billing_date, name: Since billing date, grid_options: {columns: 6}}
+          - {type: tile, entity: sensor.water_meter_total_at_billing_date, name: At billing date, grid_options: {columns: 6}}
+          - type: statistic
+            entity: sensor.water_meter_total
+            name: Yesterday
+            icon: mdi:calendar-arrow-left
+            stat_type: change
+            period: {calendar: {period: day, offset: -1}}
+            grid_options: {columns: 6}
+          - type: statistic
+            entity: sensor.water_meter_total
+            name: This week
+            icon: mdi:calendar-week
+            stat_type: change
+            period: {calendar: {period: week}}
+            grid_options: {columns: 6}
+          - type: statistic
+            entity: sensor.water_meter_total
+            name: Last week
+            icon: mdi:calendar-week-begin
+            stat_type: change
+            period: {calendar: {period: week, offset: -1}}
+            grid_options: {columns: 6}
+          - type: statistic
+            entity: sensor.water_meter_total
+            name: Last month
+            icon: mdi:calendar-month-outline
+            stat_type: change
+            period: {calendar: {period: month, offset: -1}}
+            grid_options: {columns: 6}
+          - type: statistics-graph
+            title: Last 14 days
+            entities:
+              - {entity: sensor.water_meter_total, name: Consumption, color: "#1e88e5"}
+            chart_type: bar
+            period: day
+            days_to_show: 14
+            stat_types: [change]
+            hide_legend: true
+            grid_options: {columns: full, rows: 4}
+
+      - type: grid
+        cards:
+          - type: heading
+            heading: Leak protection
+            icon: mdi:shield-check
+          - {type: tile, entity: binary_sensor.water_running, name: "Water running (> 0.3 l/min)", grid_options: {columns: 12}}
+          - {type: tile, entity: binary_sensor.water_used_without_a_break, name: "Used without a break (last hour)", grid_options: {columns: 12}}
+          - type: tile
+            entity: automation.water_leak_and_burst_pipe_alarm
+            name: Leak alarm
+            icon: mdi:pipe-leak
+            features: [{type: toggle}]
+            grid_options: {columns: 6}
+          - type: tile
+            entity: automation.water_reception_watchdog
+            name: Reception watchdog
+            icon: mdi:access-point-check
+            features: [{type: toggle}]
+            grid_options: {columns: 6}
+          - type: markdown
+            content: |-
+              **Push alarms**
+              - 🚨 **Burst pipe:** more than 33 l/min for 10 min (critical)
+              - 💧 **Running:** more than 0.3 l/min for 2 hours
+              - 🌙 **Night:** water used in every hour between 01:00 and 04:00
+              - 🥶 **Frost:** water at the meter below 3 °C (critical)
+              - 📡 **Receiver:** 15 min without radio or ESP offline
+
+              *Filling a pool? Switch the leak alarm off here for a moment.*
+
+  # ------------------------------------------------------------------
+  - title: Statistics
+    path: statistics
+    icon: mdi:chart-box
+    type: sections
+    max_columns: 2
+    sections:
+      - type: grid
+        column_span: 2
+        cards:
+          - {type: heading, heading: "Per day (30 days)", icon: mdi:calendar-today}
+          - type: statistics-graph
+            entities: [{entity: sensor.water_meter_total, name: Consumption, color: "#1e88e5"}]
+            chart_type: bar
+            period: day
+            days_to_show: 30
+            stat_types: [change]
+            hide_legend: true
+            grid_options: {columns: full, rows: 5}
+      - type: grid
+        cards:
+          - {type: heading, heading: "Per hour (48 h)", icon: mdi:clock-outline}
+          - type: statistics-graph
+            entities: [{entity: sensor.water_meter_total, name: Consumption, color: "#26a69a"}]
+            chart_type: bar
+            period: hour
+            days_to_show: 2
+            stat_types: [change]
+            hide_legend: true
+            grid_options: {columns: full, rows: 5}
+      - type: grid
+        cards:
+          - {type: heading, heading: "Per week (13 weeks)", icon: mdi:calendar-week}
+          - type: statistics-graph
+            entities: [{entity: sensor.water_meter_total, name: Consumption, color: "#5c6bc0"}]
+            chart_type: bar
+            period: week
+            days_to_show: 91
+            stat_types: [change]
+            hide_legend: true
+            grid_options: {columns: full, rows: 5}
+      - type: grid
+        cards:
+          - {type: heading, heading: "Per month (12 months)", icon: mdi:calendar-month}
+          - type: statistics-graph
+            entities: [{entity: sensor.water_meter_total, name: Consumption, color: "#8e24aa"}]
+            chart_type: bar
+            period: month
+            days_to_show: 365
+            stat_types: [change]
+            hide_legend: true
+            grid_options: {columns: full, rows: 5}
+      - type: grid
+        cards:
+          - {type: heading, heading: "Year over year", icon: mdi:calendar-range}
+          - {type: statistic, entity: sensor.water_meter_total, name: This year, stat_type: change, period: {calendar: {period: year}}, grid_options: {columns: 6}}
+          - {type: statistic, entity: sensor.water_meter_total, name: Last year, stat_type: change, period: {calendar: {period: year, offset: -1}}, grid_options: {columns: 6}}
+      - type: grid
+        cards:
+          - {type: heading, heading: "Flow (24 h)", icon: mdi:water-pump}
+          - type: history-graph
+            hours_to_show: 24
+            entities:
+              - {entity: sensor.water_flow, name: Flow}
+              - {entity: binary_sensor.water_running, name: Water running}
+            grid_options: {columns: full, rows: 5}
+      - type: grid
+        cards:
+          - {type: heading, heading: "Water temperature (7 days)", icon: mdi:thermometer-water}
+          - type: statistics-graph
+            entities: [{entity: sensor.water_meter_water_temperature, name: Water temperature, color: "#ef6c00"}]
+            chart_type: line
+            period: hour
+            days_to_show: 7
+            stat_types: [mean, min, max]
+            grid_options: {columns: full, rows: 5}
+      - type: grid
+        column_span: 2
+        cards:
+          - {type: heading, heading: "Energy dashboard: water", icon: mdi:lightning-bolt-circle}
+          - {type: energy-date-selection}
+          - {type: energy-water-graph, title: Water in the selected period, grid_options: {columns: full, rows: 6}}
+
+  # ------------------------------------------------------------------
+  - title: Device
+    path: device
+    icon: mdi:chip
+    type: sections
+    max_columns: 3
+    sections:
+      - type: grid
+        cards:
+          - {type: heading, heading: AquaBridge receiver, icon: mdi:chip}
+          - {type: tile, entity: binary_sensor.water_meter_status, name: Online, grid_options: {columns: 6}}
+          - {type: tile, entity: binary_sensor.water_meter_meter_reception, name: Radio reception, grid_options: {columns: 6}}
+          - {type: tile, entity: sensor.water_meter_last_telegram, name: Last telegram, grid_options: {columns: 12}}
+          - type: tile
+            entity: sensor.water_meter_meter_signal
+            name: Meter signal
+            grid_options: {columns: 6}
+            features: [{type: trend-graph, hours_to_show: 24}]
+          - type: tile
+            entity: sensor.water_meter_wifi_signal
+            name: WiFi signal
+            grid_options: {columns: 6}
+            features: [{type: trend-graph, hours_to_show: 24}]
+          - {type: tile, entity: sensor.water_meter_ip_address, name: IP address, grid_options: {columns: 6}}
+          - {type: tile, entity: sensor.water_meter_uptime, name: Uptime, grid_options: {columns: 6}}
+          - {type: tile, entity: sensor.water_meter_firmware, name: Firmware, grid_options: {columns: 12}}
+          - type: tile
+            entity: button.water_meter_restart
+            name: Restart
+            tap_action:
+              action: perform-action
+              perform_action: button.press
+              target: {entity_id: button.water_meter_restart}
+              confirmation: {text: "Restart the water meter receiver?"}
+            grid_options: {columns: 12}
+      - type: grid
+        cards:
+          - {type: heading, heading: Meter, icon: mdi:water-check}
+          - {type: tile, entity: sensor.water_meter_battery_life, name: Battery life, grid_options: {columns: 6}}
+          - {type: tile, entity: sensor.water_meter_meter_status, name: Meter status, grid_options: {columns: 6}}
+          - type: history-graph
+            title: Radio & WiFi (24 h)
+            hours_to_show: 24
+            entities:
+              - {entity: sensor.water_meter_meter_signal, name: Meter}
+              - {entity: sensor.water_meter_wifi_signal, name: WiFi}
+            grid_options: {columns: full, rows: 4}

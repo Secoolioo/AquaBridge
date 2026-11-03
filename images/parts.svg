@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" width="1200" height="360" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1200" height="360" rx="20" fill="#0a1a26"/>
+  <text x="40" y="52" font-size="26" font-weight="700" fill="#eef5fa">What you need</text>
+  <text x="1160" y="52" font-size="16" fill="#7f95a7" text-anchor="end">~ 20 € for two complete receivers (Nov 2026)</text>
+
+  <!-- ESP32 -->
+  <g transform="translate(40,90)">
+    <rect width="260" height="230" rx="16" fill="#0f2635" stroke="#2c4b60"/>
+    <rect x="80" y="26" width="100" height="70" rx="8" fill="#123a2c" stroke="#2f7a5a" stroke-width="2"/>
+    <rect x="105" y="38" width="50" height="40" rx="3" fill="#1d2b33" stroke="#4b6372"/>
+    <rect x="115" y="92" width="30" height="10" rx="2" fill="#9aa7b0"/>
+    <text x="130" y="136" text-anchor="middle" font-size="18" font-weight="700" fill="#eef5fa">ESP32 DevKit</text>
+    <text x="130" y="160" text-anchor="middle" font-size="14" fill="#a9bccb">WROOM-32, USB-C, CH340</text>
+    <text x="130" y="184" text-anchor="middle" font-size="14" fill="#a9bccb">diymore, pack of 2</text>
+    <text x="130" y="214" text-anchor="middle" font-size="18" font-weight="700" fill="#7dd3fc">11.98 €</text>
+  </g>
+
+  <text x="320" y="210" font-size="30" fill="#5b7a90">+</text>
+
+  <!-- CC1101 -->
+  <g transform="translate(350,90)">
+    <rect width="260" height="230" rx="16" fill="#0f2635" stroke="#2c4b60"/>
+    <rect x="85" y="30" width="90" height="62" rx="6" fill="#2a1520" stroke="#a3485f" stroke-width="2"/>
+    <rect x="110" y="46" width="40" height="30" rx="3" fill="#1d2b33" stroke="#4b6372"/>
+    <path d="M165 30 V8" stroke="#c9d6df" stroke-width="3" stroke-linecap="round"/>
+    <text x="130" y="136" text-anchor="middle" font-size="18" font-weight="700" fill="#eef5fa">CC1101 868 MHz</text>
+    <text x="130" y="160" text-anchor="middle" font-size="14" fill="#a9bccb">SPI transceiver + antenna</text>
+    <text x="130" y="184" text-anchor="middle" font-size="14" fill="#a9bccb">pack of 2</text>
+    <text x="130" y="214" text-anchor="middle" font-size="18" font-weight="700" fill="#7dd3fc">6.99 €</text>
+  </g>
+
+  <text x="630" y="210" font-size="30" fill="#5b7a90">+</text>
+
+  <!-- case -->
+  <g transform="translate(660,90)">
+    <rect width="240" height="230" rx="16" fill="#0f2635" stroke="#2c4b60"/>
+    <path d="M70 40 h100 l14 14 v40 h-128 v-40 z" fill="#1f3a4d" stroke="#5b7a90" stroke-width="2"/>
+    <rect x="98" y="80" width="44" height="8" rx="2" fill="#0a1a26"/>
+    <text x="120" y="136" text-anchor="middle" font-size="18" font-weight="700" fill="#eef5fa">3D printed case</text>
+    <text x="120" y="160" text-anchor="middle" font-size="14" fill="#a9bccb">Printables, CC0</text>
+    <text x="120" y="184" text-anchor="middle" font-size="14" fill="#a9bccb">optional</text>
+    <text x="120" y="214" text-anchor="middle" font-size="18" font-weight="700" fill="#7dd3fc">~ 1 € filament</text>
+  </g>
+
+  <text x="920" y="210" font-size="30" fill="#5b7a90">+</text>
+
+  <!-- misc -->
+  <g transform="translate(950,90)">
+    <rect width="210" height="230" rx="16" fill="#0f2635" stroke="#2c4b60"/>
+    <text x="105" y="62" text-anchor="middle" font-size="16" fill="#eef5fa" font-weight="700">You probably have:</text>
+    <text x="24" y="100" font-size="14" fill="#a9bccb">• 8 jumper wires or solder</text>
+    <text x="24" y="126" font-size="14" fill="#a9bccb">• USB charger, 5 V / 1 A</text>
+    <text x="24" y="152" font-size="14" fill="#a9bccb">• short USB cable</text>
+    <text x="24" y="178" font-size="14" fill="#a9bccb">• the AES key of your</text>
+    <text x="36" y="198" font-size="14" fill="#a9bccb">water meter</text>
+  </g>
+</svg>

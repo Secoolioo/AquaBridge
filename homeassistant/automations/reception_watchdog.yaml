@@ -1,0 +1,55 @@
+# =====================================================================
+#  AquaBridge — reception watchdog
+#
+#  Tells you when the ESP32 is offline or no telegrams arrive any more,
+#  and when reception is back.
+#
+#  Note: when an ESPHome device disconnects, its "Status" binary sensor
+#  goes to "off" (not "unavailable"). Both are covered below.
+# =====================================================================
+alias: "Water: reception watchdog"
+description: Push when the receiver is offline or the meter is silent.
+mode: queued
+max: 5
+triggers:
+  - trigger: state
+    entity_id: binary_sensor.water_meter_meter_reception
+    to: "off"
+    for: "00:05:00"
+    id: no_reception
+
+  - trigger: state
+    entity_id: binary_sensor.water_meter_status
+    to: "off"
+    for: "00:15:00"
+    id: offline
+
+  - trigger: state
+    entity_id: binary_sensor.water_meter_status
+    to: "unavailable"
+    for: "00:15:00"
+    id: offline
+
+  - trigger: state
+    entity_id: binary_sensor.water_meter_meter_reception
+    from: "off"
+    to: "on"
+    id: back
+
+variables:
+  title: >-
+    {{ {'no_reception': '📡 Water meter: no radio reception',
+        'offline': '🔌 Water meter receiver offline',
+        'back': '✅ Water meter is back'}[trigger.id] }}
+  message: >-
+    {% if trigger.id == 'no_reception' %}No telegram for more than 15 minutes
+    (last one: {{ as_timestamp(states('sensor.water_meter_last_telegram'), 0) | timestamp_custom('%d.%m. %H:%M') }}).
+    Check position, antenna and power supply.
+    {% elif trigger.id == 'offline' %}The ESP32 has not been reachable for 15 minutes. Check power and WiFi.
+    {% else %}Reception is back. Current reading: {{ states('sensor.water_meter_total') }} m³.{% endif %}
+
+actions:
+  - action: notify.mobile_app_your_phone
+    data:
+      title: "{{ title }}"
+      message: "{{ message }}"

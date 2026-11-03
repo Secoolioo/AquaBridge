@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" width="1200" height="420" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#06141f"/>
+      <stop offset="1" stop-color="#0a2233"/>
+    </linearGradient>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#38bdf8" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#38bdf8" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#ffffff" stroke-opacity="0.035"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="420" rx="22" fill="url(#bg)"/>
+  <rect width="1200" height="420" rx="22" fill="url(#grid)"/>
+  <circle cx="930" cy="210" r="230" fill="url(#glow)"/>
+
+  <!-- title -->
+  <g transform="translate(64,0)">
+    <path d="M30 98c0 0-26 30-26 50a26 26 0 0 0 52 0c0-20-26-50-26-50z" fill="url(#acc)"/>
+    <text x="74" y="150" font-size="68" font-weight="800" fill="#f1f7fb" letter-spacing="-1">Aqua<tspan fill="url(#acc)">Bridge</tspan></text>
+    <text x="4" y="206" font-size="24" fill="#b9c8d6">Read your wireless M-Bus water meter with an</text>
+    <text x="4" y="238" font-size="24" fill="#b9c8d6">ESP32 + CC1101 and put it into <tspan fill="#f1f7fb" font-weight="600">Home Assistant</tspan>.</text>
+
+    <g font-size="15" font-weight="600">
+      <rect x="4" y="276" width="146" height="34" rx="17" fill="#0f3347" stroke="#38bdf8" stroke-opacity="0.5"/>
+      <text x="77" y="298" text-anchor="middle" fill="#7dd3fc">868 MHz · T1/C1</text>
+      <rect x="160" y="276" width="128" height="34" rx="17" fill="#0f3347" stroke="#38bdf8" stroke-opacity="0.5"/>
+      <text x="224" y="298" text-anchor="middle" fill="#7dd3fc">AES decrypted</text>
+      <rect x="298" y="276" width="124" height="34" rx="17" fill="#0f3347" stroke="#38bdf8" stroke-opacity="0.5"/>
+      <text x="360" y="298" text-anchor="middle" fill="#7dd3fc">~20 € parts</text>
+      <rect x="432" y="276" width="112" height="34" rx="17" fill="#0f3347" stroke="#38bdf8" stroke-opacity="0.5"/>
+      <text x="488" y="298" text-anchor="middle" fill="#7dd3fc">no cloud</text>
+    </g>
+    <text x="4" y="354" font-size="15" fill="#6f8496">Diehl Hydrus · ESPHome · Energy dashboard · leak alarm · push notifications</text>
+  </g>
+
+  <!-- meter -->
+  <g transform="translate(700,150)">
+    <circle cx="60" cy="60" r="58" fill="#0e2a3b" stroke="#5b7a90" stroke-width="3"/>
+    <circle cx="60" cy="60" r="44" fill="#07202e" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="2"/>
+    <rect x="30" y="44" width="60" height="20" rx="3" fill="#04131c"/>
+    <text x="60" y="59" font-family="Consolas, monospace" font-size="13" text-anchor="middle" fill="#7dd3fc">00146,741</text>
+    <circle cx="60" cy="82" r="7" fill="none" stroke="#38bdf8" stroke-width="2"/>
+    <path d="M60 82 l5 -5" stroke="#38bdf8" stroke-width="2"/>
+    <text x="60" y="140" font-size="14" text-anchor="middle" fill="#8fa6b8">water meter</text>
+  </g>
+
+  <!-- waves -->
+  <g fill="none" stroke="url(#acc)" stroke-width="4" stroke-linecap="round">
+    <path d="M840 182a40 40 0 0 1 0 56" opacity="0.95"/>
+    <path d="M858 166a64 64 0 0 1 0 88" opacity="0.7"/>
+    <path d="M876 150a88 88 0 0 1 0 120" opacity="0.45"/>
+  </g>
+  <text x="866" y="300" font-size="13" text-anchor="middle" fill="#6f8496">868.95 MHz</text>
+
+  <!-- board -->
+  <g transform="translate(910,160)">
+    <rect x="0" y="0" width="112" height="100" rx="8" fill="#123a2c" stroke="#2f7a5a" stroke-width="2"/>
+    <rect x="16" y="22" width="56" height="56" rx="4" fill="#1d2b33" stroke="#4b6372"/>
+    <text x="44" y="55" font-size="11" text-anchor="middle" fill="#c9d6df" font-weight="700">ESP32</text>
+    <rect x="80" y="30" width="22" height="40" rx="3" fill="#2a3b46" stroke="#4b6372"/>
+    <text x="91" y="54" font-size="8" text-anchor="middle" fill="#9fb3c2">CC</text>
+    <path d="M91 30 V4" stroke="#c9d6df" stroke-width="3" stroke-linecap="round"/>
+    <g fill="#d4a017">
+      <circle cx="10" cy="10" r="3"/><circle cx="10" cy="90" r="3"/><circle cx="102" cy="90" r="3"/>
+    </g>
+    <text x="56" y="124" font-size="14" text-anchor="middle" fill="#8fa6b8">AquaBridge</text>
+  </g>
+
+  <!-- arrow to HA -->
+  <path d="M1032 210h44" stroke="#5b7a90" stroke-width="3" stroke-dasharray="6 6"/>
+  <path d="M1076 210l-10 -7v14z" fill="#5b7a90"/>
+
+  <!-- home assistant house -->
+  <g transform="translate(1086,166)">
+    <path d="M44 0 L88 40 V88 H0 V40 Z" fill="#18bcf2" opacity="0.95"/>
+    <circle cx="44" cy="58" r="7" fill="none" stroke="#06141f" stroke-width="4"/>
+    <circle cx="30" cy="40" r="5" fill="#06141f"/>
+    <circle cx="58" cy="46" r="5" fill="#06141f"/>
+    <path d="M44 65 V88 M44 58 L32 44 M44 58 L56 50" stroke="#06141f" stroke-width="4" fill="none"/>
+    <text x="44" y="118" font-size="14" text-anchor="middle" fill="#8fa6b8">Home Assistant</text>
+  </g>
+</svg>

@@ -1,0 +1,47 @@
+# =====================================================================
+#  Commissioning / debugging snippets for aquabridge.yaml
+#
+#  Use these the first time you bring a new meter online, or when you
+#  have to find out why nothing arrives. Copy the blocks into
+#  aquabridge.yaml, flash, watch the logs, then remove them again.
+#
+#  WARNING: at DEBUG level the device prints your AES key once at boot
+#  (dump_config). Never post raw logs publicly without redacting it.
+# =====================================================================
+
+# 1) Raise the log level
+logger:
+  level: DEBUG
+  tx_buffer_size: 1024   # long hex lines and JSON would be cut otherwise
+
+# 2) Print EVERY frame the radio catches, including your neighbours' meters.
+#    Merge this into the existing wmbus_radio: block.
+wmbus_radio:
+  on_frame:
+    - then:
+        - logger.log:
+            format: "Frame RSSI=%d dBm mode=%s len=%u hex=%s"
+            args:
+              - 'frame->rssi()'
+              - 'toString(frame->link_mode())'
+              - '(unsigned) frame->data().size()'
+              - 'frame->as_hex().c_str()'
+
+# 3) Print the decrypted telegram as JSON. This shows the EXACT field names
+#    your meter delivers (total_m3, flow_temperature_c, ...).
+#    Merge this into the on_telegram: of your wmbus_meter: block.
+wmbus_meter:
+  - id: water_meter
+    on_telegram:
+      - then:
+          - logger.log:
+              format: "Meter JSON: %s"
+              args: ['meter.as_json().c_str()']
+
+# Example of a decoded Hydrus telegram:
+#
+#   {"_":"telegram","media":"water","meter":"hydrus","name":"hydrus-12345678",
+#    "id":"12345678","at_date":"2025-12-31","flow_temperature_c":14.2,
+#    "remaining_battery_life_y":10.937938,"total_m3":146.739,
+#    "total_at_date_m3":26.541,"status":"UNKNOWN_80",
+#    "timestamp":"2026-11-02T18:35:20Z","rssi_dbm":-32}

@@ -1,0 +1,77 @@
+# =====================================================================
+#  AquaBridge — Home Assistant package (helpers)
+#
+#  Optional YAML variant. You can create exactly the same helpers in the UI
+#  (Settings -> Devices & services -> Helpers), see docs/05-home-assistant.md.
+#
+#  Install:
+#    1. configuration.yaml:
+#         homeassistant:
+#           packages: !include_dir_named packages
+#    2. copy this file to /config/packages/aquabridge.yaml
+#    3. Developer tools / Tools -> YAML -> Check configuration -> Restart
+#
+#  Entity IDs assume the ESPHome device is called "Water Meter"
+#  (friendly_name in esphome/aquabridge.yaml). Adjust if yours differs.
+# =====================================================================
+
+# --- Consumption per day / month / year -------------------------------
+utility_meter:
+  water_today:
+    unique_id: aquabridge_water_today
+    name: Water today
+    source: sensor.water_meter_total
+    cycle: daily
+    periodically_resetting: false   # the meter register never resets
+  water_this_month:
+    unique_id: aquabridge_water_this_month
+    name: Water this month
+    source: sensor.water_meter_total
+    cycle: monthly
+    periodically_resetting: false
+  water_this_year:
+    unique_id: aquabridge_water_this_year
+    name: Water this year
+    source: sensor.water_meter_total
+    cycle: yearly
+    periodically_resetting: false
+
+# --- Flow rate, calculated from the register ---------------------------
+# Most water meters do not transmit the current flow. The derivative of
+# the total register gives it to you (1 l resolution, so averaged).
+sensor:
+  - platform: derivative
+    name: Water flow
+    unique_id: aquabridge_water_flow
+    source: sensor.water_meter_total
+    unit_time: h                 # -> m³/h
+    round: 3
+    time_window: "00:10:00"
+    max_sub_interval: "00:01:00" # decays to 0 when nothing changes
+
+  - platform: derivative
+    name: Water flow hourly average
+    unique_id: aquabridge_water_flow_hourly
+    source: sensor.water_meter_total
+    unit_time: h
+    round: 4
+    time_window: "01:00:00"
+    max_sub_interval: "00:02:00"
+
+# --- Building blocks for the leak alarm --------------------------------
+binary_sensor:
+  # on above 0.018 m³/h (0.3 l/min), off below 0.006 m³/h (0.1 l/min)
+  - platform: threshold
+    name: Water running
+    unique_id: aquabridge_water_running
+    entity_id: sensor.water_flow
+    upper: 0.012
+    hysteresis: 0.006
+
+  # on as soon as at least ~1 litre went through within the last hour
+  - platform: threshold
+    name: Water used without a break
+    unique_id: aquabridge_water_no_pause
+    entity_id: sensor.water_flow_hourly_average
+    upper: 0.0006
+    hysteresis: 0.0003

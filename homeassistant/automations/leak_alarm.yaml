@@ -1,0 +1,101 @@
+# =====================================================================
+#  AquaBridge — leak and burst pipe alarm
+#
+#  Paste into: Settings -> Automations -> Create -> ⋮ -> Edit in YAML
+#  Replace notify.mobile_app_your_phone with your own phone(s).
+#  Thresholds are in m³/h because sensor.water_flow reports m³/h.
+#     2.0 m³/h  = 33 l/min   (more than a garden hose)
+#     0.018 m³/h = 0.3 l/min  (running toilet, dripping tap)
+# =====================================================================
+alias: "Water: leak and burst pipe alarm"
+description: >-
+  Burst pipe (high flow), water running for hours, water used every hour
+  during the night, frost at the meter. Push to the phone.
+mode: queued
+max: 5
+triggers:
+  - trigger: numeric_state
+    entity_id: sensor.water_flow
+    above: 2.0
+    for: "00:10:00"
+    id: burst
+
+  - trigger: state
+    entity_id: binary_sensor.water_running
+    to: "on"
+    for: "02:00:00"
+    id: running
+
+  - trigger: time
+    at: "04:00:00"
+    id: night
+
+  - trigger: temperature.crossed_threshold
+    target:
+      entity_id: sensor.water_meter_water_temperature
+    options:
+      threshold:
+        type: below
+        value:
+          number: 3
+          unit_of_measurement: "°C"
+      for: "00:30:00"
+    id: frost
+
+conditions:
+  - condition: or
+    conditions:
+      - condition: trigger
+        id: [burst, running, frost]
+      # night check: water was used in every hour since 01:00
+      - condition: and
+        conditions:
+          - condition: trigger
+            id: night
+          - condition: state
+            entity_id: binary_sensor.water_used_without_a_break
+            state: "on"
+            for: "03:00:00"
+
+variables:
+  title: >-
+    {{ {'burst': '🚨 Possible burst pipe!',
+        'running': '💧 Water has been running for 2 hours',
+        'night': '💧 Water used all night',
+        'frost': '🥶 Frost risk at the water meter'}[trigger.id] }}
+  message: >-
+    {% set flow = (states('sensor.water_flow') | float(0) * 1000 / 60) | round(1) %}
+    {% if trigger.id == 'burst' %}More than 33 l/min for 10 minutes (now {{ flow }} l/min). Check your pipes, close the main valve if needed!
+    {% elif trigger.id == 'running' %}Water has been flowing for 2 hours without a break (now {{ flow }} l/min). Tap, toilet, garden hose?
+    {% elif trigger.id == 'night' %}Water was used in every hour between 01:00 and 04:00. Maybe a small leak (dripping tap, running toilet).
+    {% else %}Water temperature at the meter is below 3 °C ({{ states('sensor.water_meter_water_temperature') }} °C). Protect the pipe from frost!{% endif %}
+
+actions:
+  - action: persistent_notification.create
+    data:
+      title: "{{ title }}"
+      message: "{{ message }}"
+      notification_id: aquabridge_alarm
+  - if:
+      - condition: trigger
+        id: [burst, frost]
+    then:
+      # critical: rings even when the iPhone is muted (Android: see docs)
+      - action: notify.mobile_app_your_phone
+        data:
+          title: "{{ title }}"
+          message: "{{ message }}"
+          data:
+            push:
+              sound:
+                name: default
+                critical: 1
+                volume: 1
+    else:
+      - action: notify.mobile_app_your_phone
+        data:
+          title: "{{ title }}"
+          message: "{{ message }}"
+          data:
+            push:
+              interruption-level: time-sensitive
