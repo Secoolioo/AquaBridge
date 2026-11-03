@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" width="1200" height="700" font-family="Roboto, Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="spark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e88e5" stop-opacity="0.45"/><stop offset="1" stop-color="#1e88e5" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="700" rx="18" fill="#111111"/>
+  <!-- top bar -->
+  <rect width="1200" height="56" rx="18" fill="#1c1c1c"/>
+  <rect y="38" width="1200" height="18" fill="#1c1c1c"/>
+  <path d="M40 18c0 0-8 9-8 15a8 8 0 0 0 16 0c0-6-8-15-8-15z" fill="#e1e1e1"/>
+  <rect x="24" y="53" width="40" height="3" fill="#03a9f4"/>
+  <rect x="88" y="20" width="16" height="16" rx="2" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+  <rect x="128" y="20" width="16" height="16" rx="2" fill="none" stroke="#9e9e9e" stroke-width="2"/>
+
+  <!-- header -->
+  <path d="M38 80c0 0-7 8-7 13a7 7 0 0 0 14 0c0-5-7-13-7-13z" fill="#29b6f6"/>
+  <text x="54" y="98" font-size="20" font-weight="500" fill="#e1e1e1">Water</text>
+  <text x="30" y="128" font-size="13" fill="#e1e1e1"><tspan font-weight="700">Meter:</tspan> 1234.567 m³ · <tspan font-weight="700">Today:</tspan> 312 l · <tspan font-weight="700">Flow:</tspan> 0.0 l/min</text>
+  <text x="30" y="150" font-size="13" fill="#e1e1e1">✅ Radio OK · 💤 No flow · 🛡️ Leak alarm armed</text>
+
+  <!-- badges -->
+  <g font-size="11">
+    <g transform="translate(694,118)"><rect width="112" height="34" rx="17" fill="#1c1c1c" stroke="#333"/><circle cx="18" cy="17" r="6" fill="#fdd835"/><text x="30" y="14" fill="#9e9e9e" font-size="9">Radio</text><text x="30" y="26" fill="#e1e1e1" font-weight="600">Connected</text></g>
+    <g transform="translate(812,118)"><rect width="104" height="34" rx="17" fill="#1c1c1c" stroke="#333"/><circle cx="18" cy="17" r="6" fill="#9e9e9e"/><text x="30" y="14" fill="#9e9e9e" font-size="9">Water running</text><text x="30" y="26" fill="#e1e1e1" font-weight="600">Off</text></g>
+    <g transform="translate(922,118)"><rect width="104" height="34" rx="17" fill="#1c1c1c" stroke="#333"/><circle cx="18" cy="17" r="6" fill="#039be5"/><text x="30" y="14" fill="#9e9e9e" font-size="9">Water temp.</text><text x="30" y="26" fill="#e1e1e1" font-weight="600">13.8 °C</text></g>
+    <g transform="translate(1032,118)"><rect width="140" height="34" rx="17" fill="#1c1c1c" stroke="#333"/><circle cx="18" cy="17" r="6" fill="#039be5"/><text x="30" y="14" fill="#9e9e9e" font-size="9">Last telegram</text><text x="30" y="26" fill="#e1e1e1" font-weight="600">7 seconds ago</text></g>
+  </g>
+
+  <g font-size="12" fill="#e1e1e1">
+  <!-- column 1: meter -->
+  <text x="30" y="196" font-size="15" fill="#e1e1e1">Meter</text>
+  <rect x="30" y="208" width="360" height="100" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/>
+  <circle cx="54" cy="232" r="7" fill="#1e88e5"/>
+  <text x="72" y="230" font-weight="600">Meter reading</text><text x="72" y="246" fill="#9e9e9e" font-size="11">1234.567 m³</text>
+  <path d="M40 300 L230 299 L290 296 L320 290 L340 284 L360 268 L372 255 L380 252 L380 302 L40 302 Z" fill="url(#spark)"/>
+  <path d="M40 300 L230 299 L290 296 L320 290 L340 284 L360 268 L372 255 L380 252" fill="none" stroke="#1e88e5" stroke-width="2"/>
+
+  <rect x="30" y="318" width="176" height="150" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/>
+  <path d="M58 432 A60 60 0 0 1 82 386" fill="none" stroke="#43a047" stroke-width="18"/>
+  <path d="M82 386 A60 60 0 0 1 150 380" fill="none" stroke="#ffa000" stroke-width="18"/>
+  <path d="M150 380 A60 60 0 0 1 178 432" fill="none" stroke="#e53935" stroke-width="18"/>
+  <text x="118" y="430" text-anchor="middle" font-size="20">0.0 l/min</text>
+  <text x="118" y="456" text-anchor="middle" fill="#bdbdbd">Flow now</text>
+
+  <rect x="214" y="318" width="176" height="150" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/>
+  <rect x="298" y="346" width="8" height="18" rx="4" fill="#039be5"/>
+  <text x="302" y="392" text-anchor="middle" font-weight="600">Water temperature</text>
+  <text x="302" y="410" text-anchor="middle" fill="#9e9e9e" font-size="11">13.8 °C</text>
+  <path d="M226 458 L300 452 L320 448 L330 432 L338 446 L346 430 L354 444 L362 428 L370 442 L380 432" fill="none" stroke="#1e88e5" stroke-width="2"/>
+
+  <rect x="30" y="478" width="360" height="56" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/>
+  <circle cx="54" cy="506" r="7" fill="none" stroke="#1e88e5" stroke-width="2"/>
+  <text x="72" y="503" font-weight="600">Flow, 1 h average</text><text x="72" y="519" fill="#9e9e9e" font-size="11">4.2 l/h</text>
+
+  <!-- column 2: consumption -->
+  <text x="420" y="196" font-size="15">Consumption</text>
+  <g>
+    <rect x="420" y="208" width="114" height="96" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><text x="477" y="256" text-anchor="middle" font-weight="600">Today</text><text x="477" y="276" text-anchor="middle" fill="#9e9e9e" font-size="11">312 l</text>
+    <rect x="543" y="208" width="114" height="96" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><text x="600" y="256" text-anchor="middle" font-weight="600">This month</text><text x="600" y="276" text-anchor="middle" fill="#9e9e9e" font-size="11">0.712 m³</text>
+    <rect x="666" y="208" width="114" height="96" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><text x="723" y="256" text-anchor="middle" font-weight="600">This year</text><text x="723" y="276" text-anchor="middle" fill="#9e9e9e" font-size="11">98.430 m³</text>
+  </g>
+  <rect x="420" y="312" width="176" height="52" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><text x="440" y="334" font-weight="600">Since billing date</text><text x="440" y="350" fill="#9e9e9e" font-size="11">98.430 m³</text>
+  <rect x="604" y="312" width="176" height="52" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><text x="624" y="334" font-weight="600">At billing date</text><text x="624" y="350" fill="#9e9e9e" font-size="11">1136.137 m³</text>
+  <g>
+    <rect x="420" y="372" width="176" height="76" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><text x="436" y="396" fill="#bdbdbd" font-size="13">Yesterday</text><text x="436" y="434" font-size="24">0.341<tspan font-size="12" fill="#9e9e9e"> m³</tspan></text>
+    <rect x="604" y="372" width="176" height="76" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><text x="620" y="396" fill="#bdbdbd" font-size="13">This week</text><text x="620" y="434" font-size="24">0.653<tspan font-size="12" fill="#9e9e9e"> m³</tspan></text>
+  </g>
+  <rect x="420" y="456" width="360" height="210" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/>
+  <text x="436" y="484" font-size="16">Last 14 days</text>
+  <g fill="#1e88e5">
+    <rect x="446" y="582" width="16" height="64"/><rect x="470" y="570" width="16" height="76"/><rect x="494" y="590" width="16" height="56"/><rect x="518" y="560" width="16" height="86"/>
+    <rect x="542" y="578" width="16" height="68"/><rect x="566" y="548" width="16" height="98"/><rect x="590" y="536" width="16" height="110"/><rect x="614" y="584" width="16" height="62"/>
+    <rect x="638" y="574" width="16" height="72"/><rect x="662" y="566" width="16" height="80"/><rect x="686" y="588" width="16" height="58"/><rect x="710" y="556" width="16" height="90"/>
+    <rect x="734" y="545" width="16" height="101"/><rect x="758" y="600" width="16" height="46"/>
+  </g>
+  <line x1="440" y1="646" x2="770" y2="646" stroke="#444"/>
+  <text x="440" y="660" font-size="9" fill="#9e9e9e">Oct 21</text><text x="760" y="660" font-size="9" fill="#9e9e9e" text-anchor="end">Nov 3</text>
+
+  <!-- column 3: leak -->
+  <text x="810" y="196" font-size="15">Leak protection</text>
+  <rect x="810" y="208" width="362" height="52" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><circle cx="834" cy="234" r="7" fill="#9e9e9e"/><text x="852" y="230" font-weight="600">Water running (&gt; 0.3 l/min)</text><text x="852" y="246" fill="#9e9e9e" font-size="11">Off</text>
+  <rect x="810" y="268" width="362" height="52" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><circle cx="834" cy="294" r="7" fill="#9e9e9e"/><text x="852" y="290" font-weight="600">Used without a break (last hour)</text><text x="852" y="306" fill="#9e9e9e" font-size="11">Off</text>
+  <g>
+    <rect x="810" y="328" width="177" height="104" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><circle cx="836" cy="352" r="12" fill="#5c4a00"/><text x="856" y="350" font-weight="600">Leak alarm</text><text x="856" y="366" fill="#9e9e9e" font-size="11">On</text>
+    <rect x="822" y="384" width="153" height="36" rx="10" fill="#4a3d00"/><rect x="898" y="384" width="77" height="36" rx="10" fill="#fdd835"/>
+    <rect x="995" y="328" width="177" height="104" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/><circle cx="1021" cy="352" r="12" fill="#5c4a00"/><text x="1041" y="350" font-weight="600">Reception watchdog</text><text x="1041" y="366" fill="#9e9e9e" font-size="11">On</text>
+    <rect x="1007" y="384" width="153" height="36" rx="10" fill="#4a3d00"/><rect x="1083" y="384" width="77" height="36" rx="10" fill="#fdd835"/>
+  </g>
+  <rect x="810" y="440" width="362" height="168" rx="12" fill="#1c1c1c" stroke="#2a2a2a"/>
+  <text x="828" y="466" font-weight="700">Push alarms</text>
+  <text x="836" y="492">• 🚨 <tspan font-weight="700">Burst pipe:</tspan> &gt; 33 l/min for 10 min (critical)</text>
+  <text x="836" y="514">• 💧 <tspan font-weight="700">Running:</tspan> &gt; 0.3 l/min for 2 hours</text>
+  <text x="836" y="536">• 🌙 <tspan font-weight="700">Night:</tspan> water every hour 01:00–04:00</text>
+  <text x="836" y="558">• 🥶 <tspan font-weight="700">Frost:</tspan> water below 3 °C (critical)</text>
+  <text x="836" y="580">• 📡 <tspan font-weight="700">Receiver:</tspan> 15 min silent or offline</text>
+  </g>
+</svg>

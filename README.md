@@ -153,6 +153,10 @@ Everything about the first boot, finding your meter in the air and reading the d
 
 ## Home Assistant
 
+<img src="images/dashboard.svg" alt="Water dashboard in Home Assistant (example values)" width="100%">
+
+<sub>The included dashboard, shown with example values.</sub>
+
 The ESP32 shows up as a new ESPHome device. Enter the API key from your `secrets.yaml` and you get:
 
 | Entity | Example |

@@ -85,6 +85,10 @@ Den Wert **Total** mit dem Display vergleichen: Er muss auf den Liter stimmen.
 
 ## Home Assistant
 
+<img src="images/dashboard.svg" alt="Wasser-Dashboard in Home Assistant (Beispielwerte)" width="100%">
+
+<sub>Das mitgelieferte Dashboard, mit Beispielwerten.</sub>
+
 Das Repo bringt fertige Konfiguration mit:
 
 - [Helfer-Paket](homeassistant/packages/aquabridge.yaml): Wasser heute / Monat / Jahr, Durchfluss,

@@ -136,6 +136,8 @@ Filling a pool or a hot tub takes hours. Switch the alarm off from the dashboard
 
 ## 5.5 Dashboard
 
+<img src="../images/dashboard.svg" alt="Water dashboard (example values)" width="100%">
+
 [`homeassistant/dashboard/water-dashboard.yaml`](../homeassistant/dashboard/water-dashboard.yaml) is a
 complete dashboard with three views, built only from standard cards (no HACS needed):
 
