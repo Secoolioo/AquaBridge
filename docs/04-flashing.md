@@ -149,8 +149,8 @@ commissioning, copy the blocks from [`debug-snippets.yaml`](../esphome/debug-sni
 ```text
 [D][main]: Frame RSSI=-32 dBm mode=T1 len=84 hex=5344a5117856341276078c00c9900f002c25...
 [D][main]: Meter JSON: {"_":"telegram","media":"water","meter":"hydrus","id":"12345678",
-           "at_date":"2025-12-31","flow_temperature_c":14.2,"remaining_battery_life_y":10.937938,
-           "total_m3":146.739,"total_at_date_m3":26.541,"status":"UNKNOWN_80","rssi_dbm":-32}
+           "at_date":"2025-12-31","flow_temperature_c":13.8,"remaining_battery_life_y":10.4,
+           "total_m3":1234.567,"total_at_date_m3":1136.137,"status":"UNKNOWN_80","rssi_dbm":-32}
 ```
 
 **Reading the frame header** (`5344a5117856341276078c…`):

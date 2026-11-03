@@ -161,11 +161,11 @@ The ESP32 shows up as a new ESPHome device. Enter the API key from your `secrets
 
 | Entity | Example |
 |---|---|
-| `sensor.water_meter_total` | 146.741 m³ |
-| `sensor.water_meter_total_at_billing_date` | 26.541 m³ |
-| `sensor.water_meter_usage_since_billing_date` | 120.200 m³ |
-| `sensor.water_meter_water_temperature` | 14.2 °C |
-| `sensor.water_meter_battery_life` | 10.9 a |
+| `sensor.water_meter_total` | 1234.567 m³ |
+| `sensor.water_meter_total_at_billing_date` | 1136.137 m³ |
+| `sensor.water_meter_usage_since_billing_date` | 98.430 m³ |
+| `sensor.water_meter_water_temperature` | 13.8 °C |
+| `sensor.water_meter_battery_life` | 10.4 a |
 | `sensor.water_meter_meter_signal` | -37 dBm |
 | `sensor.water_meter_last_telegram` | 12 seconds ago |
 | `binary_sensor.water_meter_meter_reception` | Connected |

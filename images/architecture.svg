@@ -69,6 +69,6 @@
   <rect x="40" y="390" width="1120" height="94" rx="14" fill="#0f2230" stroke="#21394b"/>
   <g font-size="14" fill="#a9bccb">
     <text x="64" y="424"><tspan fill="#7dd3fc" font-weight="700">Frame</tspan>  44 A511 &lt;ID&gt; 76 07 | 8C … (ELL) | 90 0F … (AFL, MAC) | 7A … (TPL, AES-CBC) | 0C13 total | 0A5A temp | 02FD74 battery</text>
-    <text x="64" y="456"><tspan fill="#6ee7b7" font-weight="700">Result</tspan>  {"total_m3":146.741, "total_at_date_m3":26.541, "flow_temperature_c":14.2, "remaining_battery_life_y":10.9, "rssi_dbm":-37}</text>
+    <text x="64" y="456"><tspan fill="#6ee7b7" font-weight="700">Result</tspan>  {"total_m3":1234.567, "total_at_date_m3":1136.137, "flow_temperature_c":13.8, "remaining_battery_life_y":10.4, "rssi_dbm":-37}</text>
   </g>
 </svg>
