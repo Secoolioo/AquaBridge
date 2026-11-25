@@ -39,7 +39,7 @@ external_components:
   # Pinned to a known good commit. Do not use @main blindly, it moves fast.
   # Always list the components explicitly: the repository also ships an
   # outdated esp32 component that breaks ESPHome >= 2026.3 if it gets loaded.
-  - source: github://SzczepanLeon/esphome-components@56abb0055e24bb247c5d3a2a45c9140226e01ac0
+  - source: github://SzczepanLeon/esphome-components@ef88cd2fa514776ef7b3be79f8be6426164684ea
     components: [wmbus_radio, wmbus_common, wmbus_meter]
     refresh: never
 
